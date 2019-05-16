@@ -5,6 +5,7 @@ from app.forms import LoginForm
 @app.route('/')
 @app.route('/index')
 def index():
+    # Dummy user and posts for testing purposes
     user = {'username': 'Fabian'}
     posts = [
         {
@@ -21,6 +22,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+    # for.validate_on_submit() returns True if a form was submitted
     if form.validate_on_submit():
         flash('Login requester for user {}, remember_me={}'.format(
             form.username.data, form.remember_me.data
