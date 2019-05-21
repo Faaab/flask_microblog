@@ -6,14 +6,22 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.username.label }}<br>
+<<<<<<< HEAD
             {{ form.username(size=32) }}<br>
+=======
+            {{ form.username(size=32) }}
+>>>>>>> 57d564695464000d84cd539dc1ade40b63d08d9d
             {% for error in form.username.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>
         <p>
             {{ form.password.label }}<br>
+<<<<<<< HEAD
             {{ form.password(size=32) }}<br>
+=======
+            {{ form.password(size=32) }}
+>>>>>>> 57d564695464000d84cd539dc1ade40b63d08d9d
             {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
