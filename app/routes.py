@@ -24,19 +24,8 @@ def index():
         flash('Your post is now live!')
         return redirect(url_for('index'))
 
-    # Dummy user and posts for testing purposes
-    user = {'username': 'Fabian'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title = "Home", posts=posts)
+    posts = current_user.followed_posts().all()
+    return render_template('index.html', title = "Home", form=form, posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
