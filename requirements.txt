@@ -1,0 +1,7 @@
+flask_microblog
+flask==1.0.3
+flask_sqlalchemy==0.8.0
+flask_migrate==2.5.2
+flask_login==0.4.1
+python-dotenv==0.10.3
+flask-wtf
