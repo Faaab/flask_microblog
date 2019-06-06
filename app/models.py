@@ -110,6 +110,8 @@ class SearchableMixin(object):
     @classmethod
     def reindex(cls):
         for obj in cls.query:
+            # Calling this with cls.__tablename__ makes sure the index has the name of the class in lowercase (same as in DB)
+            # obj denotes an instance of the class
             add_to_index(cls.__tablename__, obj)
 
 db.event.listen(db.session, 'before_commit', SearchableMixin.before_commit)
