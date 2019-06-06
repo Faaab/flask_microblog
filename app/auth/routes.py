@@ -5,10 +5,10 @@ from flask_babel import _
 from app import db
 from app.auth import bp
 from app.auth.forms import LoginForm, RegistrationForm, ResetPasswordRequestForm, ResetPasswordForm
-from app.email import send_password_reset_email
+from app.auth.email import send_password_reset_email
 from app.models import User
 
-app.register_blueprint(auth_bp, url_prefix='/auth')
+# app.register_blueprint(auth_bp, url_prefix='/auth')
 
 
 @bp.route('/login', methods=['GET', 'POST'])
