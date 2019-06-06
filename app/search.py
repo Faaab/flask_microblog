@@ -3,6 +3,7 @@ from flask import current_app
 def add_to_index(index, model):
     if not current_app.elasticsearch:
         return
+    # payload will hold all values in the columns mentioned as __searchable__ in the model
     payload = {}
     for field in model.__searchable__:
         payload[field] = getattr(model, field)
