@@ -2,7 +2,7 @@ import click
 import os
 
 def register(app):
-    @app.cli.group():
+    @app.cli.group()
     def translate():
         """Translation and localization commands."""
         pass
