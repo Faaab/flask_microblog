@@ -6,3 +6,5 @@ app/__pycache__/
 logs/
 
 app.db
+
+.env
