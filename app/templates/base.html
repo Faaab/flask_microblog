@@ -78,7 +78,14 @@
                            '/user/' + elem.first().text().trim() + '/popup').done(
                                function(data) {
                                    xhr = null;
-                                   // create + display logic for popup
+                                   elem.popover({
+                                       trigger: 'manual',
+                                       html: true,
+                                       animation: false,
+                                       container: elem,
+                                       content:data
+                                   }).popover('show');
+                                   flask_moment_render_all();
                                }
                            )
                        )
@@ -96,7 +103,7 @@
                        xhr = null;
                    }
                    else {
-                       // destroy popup here
+                       elem.popover('destroy');
                    }
                }
            ) 
