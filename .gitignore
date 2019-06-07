@@ -8,3 +8,5 @@ logs/
 app.db
 
 .env
+
+docker_start.txt
