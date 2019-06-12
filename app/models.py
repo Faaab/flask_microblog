@@ -7,6 +7,8 @@ from time import time
 from app.search import add_to_index, remove_from_index, query_index
 import jwt
 import json
+import redis
+import rq
 
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
@@ -38,6 +40,7 @@ class User(UserMixin, db.Model):
         secondaryjoin=(followers.c.followed_id == id),
         backref=db.backref('followers', lazy='dynamic'),
         lazy='dynamic')
+    tasks = db.relationship('Task', backref='user', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -169,6 +172,24 @@ class Notification(db.Model):
 
     def get_data(self):
         return json.loads(str(self.payload_json))
+
+class Task(db.Model):
+    id = db.Column(db.String(36), primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    description = db.Column(db.String(128))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    complete = db.Column(db.Boolean, default=False)
+
+    def get_rq_job(self):
+        try:
+            rq_job = rq.job.Job.fetch(self.id, connection=current_app.redis)
+        except (redis.exceptions.RedisError, rq.exceptions.NoSuchJobError):
+            return None
+        return rq_job
+    
+    def get_progress(self):
+        job = self.get_rq_job()
+        return job.meta.get('progress', 0) if job is not None else 100
 
 @login.user_loader
 def load_user(id):
