@@ -1,17 +1,17 @@
 from app import create_app, db
 from app.email import send_email
-from app.models import Task, Post
+from app.models import Task, Post, User
 from flask import render_template
 from rq import get_current_job
 import json
 import sys
 import time
 
-app = create_app
+app = create_app()
 app.app_context().push()
 
 def _set_task_progress(progress):
-    job = get_current_job():
+    job = get_current_job()
     if job:
         job.meta['progress'] = progress
         job.save_meta()
